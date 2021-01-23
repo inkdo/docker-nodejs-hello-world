@@ -4,7 +4,7 @@
 
 ## Setup
 
-- `npm install`
+- Optional: For local development `npm install`
 - Build image `docker build -t node-web-app .`
 - List image `docker images`
 - Run image `docker run -p 49160:8080 -d node-web-app`
