@@ -3,7 +3,7 @@
 const express = require("express");
 
 // Constants
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 const HOST = "0.0.0.0";
 
 // App
@@ -14,3 +14,10 @@ app.get("/", (req, res) => {
 
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
+
+// Fail test
+if (process.env.CRASHTEST == "true") {
+  setTimeout(() => {
+    throw new Error("database failed to connect");
+  }, 10000);
+}
