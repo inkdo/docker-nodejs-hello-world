@@ -42,6 +42,9 @@ Based on <https://nodejs.org/en/docs/guides/nodejs-docker-webapp>
 
 ## Volumes
 
-- using Windows and wsl volumes can probably be found in `\\wsl$\docker-desktop-data\version-pack-data\community\docker\volumes\` (type in win-explorer)
-- `docker volume create <volume-name>`
-- `docker run <volume-name>:<folder in image to equal volume> <image>`
+- Create `docker volume create <volume-name>`
+- Run `docker run -v <volume-name>:<folder in image to equal volume> <image>`
+- Remove `docker volume rm <volume-name>`
+- List volumes `docker volume ls`
+- Inspect volume `docker volume inspect <volume-name>`
+- Disk location when using Windows+WSL for volumes pointing to `/var/lib/docker/`: `\\wsl$\docker-desktop-data\version-pack-data\community\docker\volumes\` (open in Windows-Explorer)
