@@ -8,6 +8,7 @@ Based on <https://nodejs.org/en/docs/guides/nodejs-docker-webapp>
 - `docker run -d --name nwa --restart unless-stopped -e PORT=80 -e CRASHTEST=true -p 8080:80 node-web-app`
 - goto `http://localhost:80`
 - `docker ps`, the app will crash after 10 seconds and restart automatically, but also start after reboot.
+- If running VS Code get recommended extensions (optional)
 
 ## General Usage
 
