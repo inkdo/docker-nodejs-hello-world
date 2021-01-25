@@ -1,4 +1,4 @@
-# Docker NodeJS Hello World
+# Docker Hello World (with NodeJS)
 
 Based on <https://nodejs.org/en/docs/guides/nodejs-docker-webapp>
 
@@ -32,3 +32,16 @@ Based on <https://nodejs.org/en/docs/guides/nodejs-docker-webapp>
 - Remove container `docker rm <container id>`
 - Stop, remove, rebuild and rerun to update changes
 - Remove _all_ containers, images and cache `docker system prune -a`, confirm with `y`
+
+## Docker Caching and Layers
+
+- For `ADD` or `COPY` docker auto-detects if there has been file changes since the last cached build. If yes it will rebuild from there on, otherwise skip until the next possible change and check again.
+- For example `npm install` is not needed to run again, if the `package*.json` files didn't change. So putting `COPY package*.json ./` infront, instead of all the files (`COPY . .`) will allow docker to detect, that nothing relevant for `npm install` changed, even if the source code did.
+- If possible it thus makes sense to put the least likely to change commands first
+- more [here](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
+
+## Volumes
+
+- using Windows and wsl volumes can probably be found in `\\wsl$\docker-desktop-data\version-pack-data\community\docker\volumes\` (type in win-explorer)
+- `docker volume create <volume-name>`
+- `docker run <volume-name>:<folder in image to equal volume> <image>`
