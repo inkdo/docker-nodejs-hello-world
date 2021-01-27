@@ -37,7 +37,9 @@ jobs:
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,') 
 
           # Use for main branch use `latest` tag convention
-          [ "$VERSION" == "main" ] && docker tag docker_image $IMAGE_ID:latest && docker push $IMAGE_ID:latest
+          [ "$VERSION" == "main" ] && docker tag docker_image $IMAGE_ID:latest
+          [ "$VERSION" == "main" ] && docker push $IMAGE_ID:latest
 
           # For other branches use branch as tag
-          [ "$VERSION" != "main ]  && docker tag docker_image $IMAGE_ID:$VERSION && docker push $IMAGE_ID:$VERSION
+          [ "$VERSION" != "main ] && docker tag docker_image $IMAGE_ID:$VERSION
+          [ "$VERSION" != "main ] && docker push $IMAGE_ID:$VERSION
