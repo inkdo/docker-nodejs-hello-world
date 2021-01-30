@@ -36,8 +36,9 @@ jobs:
           if [[ "${{ github.ref }}" == "refs/tags/"* ]]; then
             VERSION=$(echo $VERSION | sed -e 's/^v//')
             docker tag docker_image $IMAGE_ID:$VERSION
+            docker push $IMAGE_ID:$VERSION
             docker tag docker_image $IMAGE_ID:latest
-            docker image push -a $IMAGE_ID
+            docker push $IMAGE_ID:latest
           else
             if [ "$VERSION" = "main" ]; then
               # Use for main branch use `latest` tag convention
