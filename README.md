@@ -71,3 +71,7 @@ Based on <https://nodejs.org/en/docs/guides/nodejs-docker-webapp>
   - Push another version `docker push ghcr.io/OWNER/IMAGE_NAME:1.1 .`, you might to want to push the new version also to the latest tag
   - `docker run ghcr.io/OWNER/IMAGE_NAME` or to only download `docker pull ghcr.io/OWNER/IMAGE_NAME:latest`
   - Image size (not clear if it matches the size you might pay for on GitHub private `docker manifest inspect -v ghcr.io/OWNER/IMAGE_NAME | grep size | awk -F ':' '{sum+=$NF} END {print sum}' | numfmt --to=iec-i` [source](https://stackoverflow.com/a/55156181/4339170) (sums up the manifest you can also see on GitHub)
+
+## GitHub Workflow for GitHub Container Registry
+
+- See .github/workflows/deploy.yml
