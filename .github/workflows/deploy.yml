@@ -21,7 +21,7 @@ jobs:
                     
       - name: Build Docker Image
         run: |
-          docker build -t docker_image .
+          docker build -t docker_image --label "org.opencontainers.image.source=https://github.com/${{ github.repository }}" .
           
       - name: Push to GitHub Container Registry
         run: |
