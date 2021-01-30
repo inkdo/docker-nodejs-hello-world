@@ -75,3 +75,4 @@ Based on <https://nodejs.org/en/docs/guides/nodejs-docker-webapp>
 ## GitHub Workflow for GitHub Container Registry
 
 - See .github/workflows/deploy.yml
+- Reference the GitHub Repo, add this to the Dockerfile: `LABEL org.opencontainers.image.source https://github.com/OWNER/REPO` or ` --label "org.opencontainers.image.source=https://github.com/OWNER/REPO"` in the `docker build` command
