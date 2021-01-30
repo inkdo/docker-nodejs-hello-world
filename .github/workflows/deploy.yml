@@ -1,10 +1,12 @@
 name: Deploy Docker
 
-# Run workflow on tags starting with v (eg. v2, v1.2.0)
 on:
   push:
     branches:
         - main
+  create:
+    tags:
+      - v*
 
 jobs:
   push_to_registry:
@@ -29,17 +31,21 @@ jobs:
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
 
           # If we there is a version tag publish an image with version tag
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] \
-            && VERSION=$(echo $VERSION | sed -e 's/^v//') \
-            && docker tag docker_image $IMAGE_ID:$VERSION \
-            && docker push $IMAGE_ID:$VERSION
+          if [ "${{ github.ref }}" = "refs/tags/"* ]; then
+            VERSION=$(echo $VERSION | sed -e 's/^v//')
+            docker tag docker_image $IMAGE_ID:$VERSION
+            docker push $IMAGE_ID:$VERSION
+          fi
 
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,') 
 
-          # Use for main branch use `latest` tag convention
-          [ "$VERSION" == "main" ] && docker tag docker_image $IMAGE_ID:latest
-          [ "$VERSION" == "main" ] && docker push $IMAGE_ID:latest
+          if [ "$VERSION" = "main" ]; then
+            # Use for main branch use `latest` tag convention
+            docker tag docker_image $IMAGE_ID:latest
+            docker push $IMAGE_ID:latest
+          else
+            # For other branches use branch as tag
+            docker tag docker_image $IMAGE_ID:$VERSION
+            docker push $IMAGE_ID:$VERSION
+          fi
 
-          # For other branches use branch as tag
-          [ "$VERSION" != "main ] && docker tag docker_image $IMAGE_ID:$VERSION
-          [ "$VERSION" != "main ] && docker push $IMAGE_ID:$VERSION
