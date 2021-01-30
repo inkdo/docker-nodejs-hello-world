@@ -76,3 +76,4 @@ Based on <https://nodejs.org/en/docs/guides/nodejs-docker-webapp>
 
 - See .github/workflows/deploy.yml
 - Reference the GitHub Repo, add this to the Dockerfile: `LABEL org.opencontainers.image.source https://github.com/OWNER/REPO` or ` --label "org.opencontainers.image.source=https://github.com/OWNER/REPO"` in the `docker build` command. This will also show the package in the repositories "packages" list.
+- Making the package public has do be done manually (private by default, also for public repos).
