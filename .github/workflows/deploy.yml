@@ -37,7 +37,7 @@ jobs:
             VERSION=$(echo $VERSION | sed -e 's/^v//')
             docker tag docker_image $IMAGE_ID:$VERSION
             docker tag docker_image $IMAGE_ID:latest
-            docker push --all-tags $IMAGE_ID
+            docker image push --all-tags $IMAGE_ID
           else
             if [ "$VERSION" = "main" ]; then
               # Use for main branch use `latest` tag convention
