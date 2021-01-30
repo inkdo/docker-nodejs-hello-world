@@ -30,14 +30,14 @@ jobs:
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
 
-
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,') 
           
           # If we there is a version tag publish an image with version tag
-          if [ "${{ github.ref }}" = "refs/tags/"* ]; then
+          if [["${{ github.ref }}" == "refs/tags/"* ]]; then
             VERSION=$(echo $VERSION | sed -e 's/^v//')
             docker tag docker_image $IMAGE_ID:$VERSION
-            docker push $IMAGE_ID:$VERSION
+            docker tag docker_image $IMAGE_ID:latest
+            docker push $IMAGE_ID --all-tags
           else
             if [ "$VERSION" = "main" ]; then
               # Use for main branch use `latest` tag convention
