@@ -33,7 +33,7 @@ jobs:
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,') 
           
           # If we there is a version tag publish an image with version tag
-          if [["${{ github.ref }}" == "refs/tags/"* ]]; then
+          if [[ "${{ github.ref }}" == "refs/tags/"* ]]; then
             VERSION=$(echo $VERSION | sed -e 's/^v//')
             docker tag docker_image $IMAGE_ID:$VERSION
             docker tag docker_image $IMAGE_ID:latest
