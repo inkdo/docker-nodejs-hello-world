@@ -10,6 +10,11 @@ Based on <https://nodejs.org/en/docs/guides/nodejs-docker-webapp>
 - `docker ps`, the app will crash after 10 seconds and restart automatically, but also start after reboot.
 - If running VS Code get recommended extensions (optional)
 
+## Other Repos/Learnings
+
+- <https://github.com/picode7/minecraft-docker-hetzner>
+- <https://github.com/picode7/deno-docker>
+
 ## General Usage
 
 - Optional: For local development `npm install`
@@ -48,3 +53,21 @@ Based on <https://nodejs.org/en/docs/guides/nodejs-docker-webapp>
 - List volumes `docker volume ls`
 - Inspect volume `docker volume inspect <volume-name>`
 - Disk location when using Windows+WSL for volumes pointing to `/var/lib/docker/`: `\\wsl$\docker-desktop-data\version-pack-data\community\docker\volumes\` (open in Windows-Explorer)
+- Backup volumes <https://docs.docker.com/storage/volumes/#backup-restore-or-migrate-data-volumes>
+
+## Docker Compose
+
+- Create a `docker-compose.yml` and create the config you need
+- Start `docker compose up -d` - `-d` for detached like in `docker run`
+- Stop and remove `docker compose down`, to also remove volumes add `--volumes`
+
+## Publishing Image
+
+- Using GitHub Container Registry, publishing manually:
+  - Following <https://docs.github.com/en/packages/guides/pushing-and-pulling-docker-images> (beta)
+  - Create access token and login `echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin`
+  - Build `docker build -t ghcr.io/<githubname>/<packagename> .`
+  - Push latest version `docker push ghcr.io/OWNER/IMAGE_NAME:latest .`
+  - Push another version `docker push ghcr.io/OWNER/IMAGE_NAME:1.1 .`, you might to want to push the new version also to the latest tag
+  - `docker run ghcr.io/OWNER/IMAGE_NAME` or to only download `docker pull ghcr.io/OWNER/IMAGE_NAME:latest`
+  - Image size (not clear if it matches the size you might pay for on GitHub private `docker manifest inspect -v ghcr.io/OWNER/IMAGE_NAME | grep size | awk -F ':' '{sum+=$NF} END {print sum}' | numfmt --to=iec-i` [source](https://stackoverflow.com/a/55156181/4339170) (sums up the manifest you can also see on GitHub)
